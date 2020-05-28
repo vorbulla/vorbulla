@@ -2,7 +2,6 @@ import React from "react";
 import NextDocument, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet as StyledComponentSheets } from "styled-components";
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from "@material-ui/styles";
-import theme from "../src/theme";
 import * as Sentry from "@sentry/browser";
 
 process.on("unhandledRejection", (err) => {
@@ -54,7 +53,6 @@ export default class Document extends NextDocument {
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
-          <meta name="theme-color" content={theme.palette.primary.main} />
 
           <link
             rel="apple-touch-icon"
@@ -77,7 +75,7 @@ export default class Document extends NextDocument {
           <link
             rel="mask-icon"
             href="/favicon/safari-pinned-tab.svg"
-            color="#5bbad5"
+            color="#000"
           />
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
           <meta name="msapplication-TileColor" content="#da532c" />
@@ -96,11 +94,6 @@ export default class Document extends NextDocument {
           <Main />
           <NextScript />
         </body>
-
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/nprogress@0.2.0/nprogress.css"
-        />
       </html>
     );
   }

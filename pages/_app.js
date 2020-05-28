@@ -4,7 +4,6 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
 import NProgress from "nprogress";
-import TagManager from "react-gtm-module";
 import Router from "next/router";
 import LayoutDefault from "../components/Layouts/LayoutDefault";
 import * as Sentry from "@sentry/browser";
@@ -13,35 +12,14 @@ Sentry.init({
   dsn: "https://a687880c705141a89fd6b5cdef4bcc29@sentry.io/4159943",
 });
 
-if (process.env.loader) {
-  // nprogress
-  Router.events.on("routeChangeStart", (url) => {
-    NProgress.start();
-  });
-  Router.events.on("routeChangeComplete", () => NProgress.done());
-  Router.events.on("routeChangeError", () => NProgress.done());
-}
-
-const tagManagerArgs = {
-  gtmId: process.env.tagManager,
-};
+Router.events.on("routeChangeStart", (url) => {
+  NProgress.start();
+});
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
   componentDidMount() {
-    // if (process.env.tagManager) {
-    //   TagManager.initialize(tagManagerArgs);
-    // }
-
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
@@ -69,9 +47,6 @@ export default class MyApp extends App {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <style jsx global>{`
-            body {
-              overflow-y: scroll !important;
-            }
             .page-enter {
               opacity: 0 !important;
               position: absolute !important;
@@ -94,24 +69,52 @@ export default class MyApp extends App {
               transition: opacity 500ms, transform 500ms !important;
             }
 
-            #nprogress .bar {
-              z-index: 99999999 !important;
-              top: 0 !important;
-              background: #000 !important;
-            }
-            #nprogress .spinner {
-              top: 10px !important;
-              left: 15px !important;
-              z-index: 99999999 !important;
-            }
-            #nprogress .spinner .spinner-icon {
-              border-top-color: #000;
-              border-left-color: #000;
-            }
-
-            .MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error {
+            .MuiFormHelperText-root {
               position: absolute !important;
               bottom: -18px !important;
+            }
+
+            #nprogress {
+              pointer-events: none;
+            }
+
+            #nprogress .bar {
+              background: #000;
+
+              position: fixed;
+              z-index: 1031;
+              top: 0;
+              left: 0;
+
+              width: 100%;
+              height: 2px;
+            }
+
+            #nprogress .peg {
+              display: block;
+              position: absolute;
+              right: 0px;
+              width: 100px;
+              height: 100%;
+              box-shadow: 0 0 10px #000, 0 0 5px #000;
+              opacity: 1;
+
+              -webkit-transform: rotate(3deg) translate(0px, -4px);
+              -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+            }
+
+            #nprogress .spinner {
+              display: none;
+            }
+
+            .nprogress-custom-parent {
+              overflow: hidden;
+              position: relative;
+            }
+
+            .nprogress-custom-parent #nprogress .bar {
+              position: absolute;
             }
           `}</style>
 

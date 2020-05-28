@@ -1,22 +1,16 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import styled from "styled-components";
-
-const ContactForm = styled.div`
-  background: #000;
-  color: #fff;
-  padding: 80px;
-  max-width: 600px;
-  height: 100%;
-`;
+import Post from "../components/CaseStudies/Post";
 
 export default function CaseStudies() {
   return (
-    <Container>
-      <h1>CaseStudies</h1>
+    <Container style={{ maxWidth: 1024, marginTop: 140 }} r>
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
     </Container>
   );
 }

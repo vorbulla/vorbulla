@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React, { Component } from \"react\";\nimport Home from \"../components/Home\";\nexport default class Index extends Component {\n  render() {\n    return __jsx(React.Fragment, null, __jsx(Home, null));\n  }\n\n}\nIndex.Header = \"fixed\";","map":null,"metadata":{},"sourceType":"module"}

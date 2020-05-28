@@ -1,62 +1,10 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { MdAttachFile } from "react-icons/md";
-import { FiChevronRight } from "react-icons/fi";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import ContactSVG from "../public/images/contact.svg";
-const TextFieldWhite = withStyles({
-  root: {
-    "& label": {
-      color: "#fff",
-      borderBottomColor: "#fff",
-    },
-    "& .MuiInput-underline:before": {
-      borderBottomColor: "#fff",
-    },
-    "& .MuiInput-underline:hover:before": {
-      borderBottomColor: "#fff",
-    },
-    "& label.Mui-focused": {
-      color: "#fff",
-    },
-    "& .MuiInput-input": {
-      color: "#fff",
-    },
-    "& label.Mui-focused": {
-      color: "#fff",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#fff",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#fff",
-      },
-      "&:hover fieldset": {
-        borderColor: "#fff",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#fff",
-      },
-    },
-  },
-})(TextField);
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
+import Hero from "../components/Contact/Hero";
+import Form from "../components/Contact/Form";
 
 const Map = styled.iframe`
   height: 500px;
@@ -65,18 +13,15 @@ const Map = styled.iframe`
   margin-top: 80px;
 `;
 
-const ContactForm = styled(Form)`
-  background: #000;
-  color: #fff;
-  padding: 80px;
-  max-width: 600px;
-  height: 100%;
-`;
-
 const ContactInfo = styled.div`
   background-color: rgb(248, 248, 249);
   padding: 80px 40px;
   height: 100%;
+  padding-left: 140px;
+  margin-left: -100px;
+  z-index: 10;
+  margin-top: -60px;
+  position: relative;
 
   .ordered-list {
     margin-bottom: 0px;
@@ -124,122 +69,22 @@ const ContactInfo = styled.div`
   }
 `;
 export default function Contact() {
-  const classes = useStyles();
   return (
     <React.Fragment>
-      <Container style={{ marginTop: 120 }}>
-        <Grid
-          container
-          spacing={2}
-          style={{ maxWidth: 1024, margin: "0 auto", marginBottom: 80 }}
-        >
-          <Grid
-            item
-            xs={12}
-            md={6}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <h1 style={{ fontSize: 40, margin: 0 }}>Contact</h1>
-            <h3 style={{ fontSize: 22, fontWeight: 400 }}>
-              Got an <strong>amazing business idea</strong>? <br /> Let’s bring
-              it to market together
-            </h3>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <ContactSVG />
-          </Grid>
-        </Grid>
-      </Container>
-      <Container>
-        <Grid
-          container
-          style={{ maxWidth: 1024, margin: "0 auto" }}
-          spacing={2}
-        >
+      <Hero />
+
+      <Container
+        style={{
+          maxWidth: 1024,
+          margin: "0 auto",
+          marginTop: -120,
+          zIndex: 100,
+          position: "relative",
+        }}
+      >
+        <Grid container spacing={2}>
           <Grid item xs={7}>
-            <Formik
-              initialValues={{
-                name: "asdasd",
-                email: "",
-                phone: "",
-                message: "",
-              }}
-              validationSchema={Yup.object().shape({
-                name: Yup.string().required("Required"),
-                email: Yup.string().required("Required"),
-                phone: Yup.string().required("Required"),
-                message: Yup.string().required("Required"),
-              })}
-            >
-              {({ submitForm, isSubmitting }) => (
-                <ContactForm>
-                  <h1>Tell Us About Your Project</h1>
-                  <Field
-                    component={TextFieldWhite}
-                    type="text"
-                    margin="normal"
-                    fullWidth
-                    label="Your name"
-                    name="name"
-                  />
-                  <Field
-                    component={TextFieldWhite}
-                    type="email"
-                    margin="normal"
-                    fullWidth
-                    label="Your email"
-                    name="email"
-                  />
-                  <Field
-                    component={TextFieldWhite}
-                    type="tel"
-                    margin="normal"
-                    fullWidth
-                    label="Your phone number"
-                    name="phone"
-                  />
-                  <Field
-                    component={TextFieldWhite}
-                    type="text"
-                    margin="normal"
-                    fullWidth
-                    label="Message"
-                    name="message"
-                  />
-
-                  <Grid container>
-                    <Grid item xs></Grid>
-                    <Grid item>
-                      <Button
-                        style={{ color: "#fff" }}
-                        endIcon={<MdAttachFile></MdAttachFile>}
-                      >
-                        Attach files
-                      </Button>
-                    </Grid>
-                  </Grid>
-
-                  <br />
-                  <br />
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    disabled={isSubmitting}
-                    onClick={submitForm}
-                    disableElevation
-                    style={{ background: "#fff", color: "#000" }}
-                  >
-                    Request Project
-                  </Button>
-                </ContactForm>
-              )}
-            </Formik>
+            <Form />
           </Grid>
           <Grid item xs={5}>
             <ContactInfo>
@@ -247,21 +92,21 @@ export default function Contact() {
                 <strong className="in-violet-450">What’s</strong> next?
               </h1>
 
-              <ol class="ordered-list pt-0">
-                <li class="contact-flow__list-item ordered-list__item">
+              <ol className="ordered-list pt-0">
+                <li className="contact-flow__list-item ordered-list__item">
                   We’ll contact you within 24 hours with more information on our
                   next steps. In the meantime, you can check out our{" "}
-                  <a class="in-violet-450" href="/case-studies">
+                  <a className="in-violet-450" href="/case-studies">
                     case studies
                   </a>
                   .
                 </li>
-                <li class="contact-flow__list-item ordered-list__item">
+                <li className="contact-flow__list-item ordered-list__item">
                   Our next step will be to collect all the requirements for your
                   project, clarify your business objectives, and expectations
                   towards our cooperation.
                 </li>
-                <li class="contact-flow__list-item ordered-list__item">
+                <li className="contact-flow__list-item ordered-list__item">
                   After that, we’ll develop a proposal for you.
                 </li>
               </ol>
@@ -277,3 +122,5 @@ export default function Contact() {
     </React.Fragment>
   );
 }
+
+Contact.Header = "fixed";
